@@ -1,0 +1,1 @@
+console.log('smart js joined with smart shop');
