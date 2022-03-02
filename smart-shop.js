@@ -3,14 +3,17 @@ const yourPhone =() =>{
     const searchFieldText = searchField.value;
 //  console.log(searchFieldText);
 searchField.value = '';
-
- const url = `https://openapi.programming-hero.com/api/phones?search=${searchFieldText}`;
-//  console.log(url);
-fetch(url)
-.then(res => res.json())
-.then(data => displayPhone(data.data.slice(0,20)))
-
-   
+// error handeling
+if(searchFieldText == ''){
+ alert('Please input something');
+}
+else {
+  const url = `https://openapi.programming-hero.com/api/phones?search=${searchFieldText}`;
+  //  console.log(url);
+  fetch(url)
+  .then(res => res.json())
+  .then(data => displayPhone(data.data.slice(0,20)))
+}
 }
 
 const displayPhone = data => {
@@ -27,6 +30,7 @@ const displayPhone = data => {
                 <div class="card-body">
                   <h5 class="card-title">${phone.brand}</h5>
                   <p class="card-text">${phone.phone_name}</p>
+                  <br>
                 </div>
               </div>
        `;
@@ -39,7 +43,7 @@ const phoneDetails = phoneId =>{
 const url =`
 https://openapi.programming-hero.com/api/phone/${phoneId}
 `;
-// console.log(url);
+console.log(url);
 fetch(url)
 .then(res => res.json())
 .then(data => displayPhoneDetails(data.data))
@@ -48,6 +52,7 @@ fetch(url)
 const displayPhoneDetails = phones =>{
   // console.log(phones);
   const phoneDetail = document.getElementById('phone-details');
+  phoneDetail.textContent = '';
   const div = document.createElement('div');
   div.classList.add('card');
   div.innerHTML = `
@@ -60,4 +65,6 @@ const displayPhoneDetails = phones =>{
   `;
   phoneDetail.appendChild(div);
 
-}
+};
+
+
